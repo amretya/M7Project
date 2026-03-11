@@ -1,0 +1,36 @@
+Dockerfile
+README.md
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pytest_cache
+.idea
+test
+*.tfstate
+*.tfstate.*
+*.backup
+.terraform/
+.terraform.lock.hcl
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.*
+
+# Ignore crash logs
+crash.log
+
+# Ignore .terraform directories
+.terraform/
+
+# Ignore override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore Terraform variable files
+*.tfvars
+*.tfvars.json
+
+# Ignore backup files
+*.backup

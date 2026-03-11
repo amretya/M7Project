@@ -1,0 +1,7 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile.prod', '-t', 'asia-southeast1-docker.pkg.dev/github-action-cve/cloud-run-source-deploy/cloud-run-source-deploy:latest', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'asia-southeast1-docker.pkg.dev/github-action-cve/cloud-run-source-deploy/cloud-run-source-deploy:latest']
+images:
+  - "gcr.io/github-action-cve/cloud-run-source-deploy"

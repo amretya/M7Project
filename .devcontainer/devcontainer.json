@@ -1,0 +1,29 @@
+{
+    "name": "Python deploy-cloud-run Devcontainer",
+    "build": {
+      "dockerfile": "../Dockerfile.dev"
+    },
+    "customizations": {
+      "vscode": {
+          "extensions": [
+              "ms-python.python",
+              "ms-python.vscode-pylance",
+              "ms-python.black-formatter",
+              "ms-python.debugpy",
+              "ms-azuretools.vscode-docker"
+          ],
+          "settings": {}
+      }
+    },
+    "portsAttributes": {
+        "8080": {
+            "autoForward": false
+        }
+    },
+    "forwardPorts": [
+      "1234:8080"
+    ],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/code,type=bind,consistency=delegated",
+    "workspaceFolder": "/code",
+    "runArgs": []
+}
