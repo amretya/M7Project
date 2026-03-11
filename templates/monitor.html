@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <nav class="topbar">
+            <div class="brand">Emotion Detection AI</div>
+            <div class="nav-actions">
+                <a class="nav-link" href="/">Home</a>
+            </div>
+        </nav>
+
+        <main class="hero">
+            <section class="card main-card">
+                <span class="badge">Monitoring</span>
+                <h1>Service Monitoring Overview</h1>
+                <p class="subtitle">
+                    This page shows application-level monitoring. Use Google Cloud Run and Cloud Logging for official platform metrics and screenshots.
+                </p>
+
+                <div class="result-grid">
+                    <div class="result-box">
+                        <p class="result-label">Service Status</p>
+                        <p class="result-value">{{ status }}</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Model</p>
+                        <p class="result-value monitor-small">{{ model_name }}</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Threshold</p>
+                        <p class="result-value">{{ threshold }}</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Total Requests</p>
+                        <p class="result-value">{{ requests }}</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Error Count</p>
+                        <p class="result-value">{{ errors }}</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Error Rate</p>
+                        <p class="result-value">{{ error_rate }}%</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Avg Latency</p>
+                        <p class="result-value">{{ avg_latency_ms }} ms</p>
+                    </div>
+                    <div class="result-box">
+                        <p class="result-label">Last Latency</p>
+                        <p class="result-value">{{ last_latency_ms }} ms</p>
+                    </div>
+                </div>
+
+                {% if last_prediction %}
+                <div class="input-preview">
+                    <p class="result-label">Last Input</p>
+                    <p>{{ last_prediction.text }}</p>
+                </div>
+
+                <div class="input-preview">
+                    <p class="result-label">Last Predicted Emotions</p>
+                    <div class="chip-wrap">
+                        {% for item in last_prediction.predicted %}
+                        <div class="emotion-chip">
+                            <span class="chip-label">{{ item.label }}</span>
+                            <span class="chip-score">{{ "%.2f"|format(item.score * 100) }}%</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="input-preview">
+                    <p class="result-label">Last Prediction</p>
+                    <p>No predictions made yet.</p>
+                </div>
+                {% endif %}
+
+                <div class="cloud-note">
+                    <h3>Official Monitoring Evidence</h3>
+                    <p>
+                        For the presentation, analysis and screenshots of metrics are from Google Cloud Run metrics and Cloud Logging to show latency, CPU usage, memory usage, request logs, and errors.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

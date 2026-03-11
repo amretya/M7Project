@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="page">
+        <nav class="topbar">
+            <div class="brand">Emotion Detection AI</div>
+            <div class="nav-actions">
+                <a class="nav-link" href="/monitor">Monitoring</a>
+            </div>
+        </nav>
+
+        <main class="hero">
+            <section class="card main-card">
+                <span class="badge">Hugging Face Multi-Label Model</span>
+                <h1>Analyze emotions from text</h1>
+                <p class="subtitle">
+                    This app predicts multiple emotions from a single sentence using a GoEmotions-based RoBERTa model.
+                </p>
+
+                <form method="post" action="/predict_ui" class="predict-form">
+                    <label for="text" class="label">Enter text</label>
+                    <textarea
+                        id="text"
+                        name="text"
+                        rows="6"
+                        placeholder="Try something like: I worked so hard on this and now I finally feel proud and relieved."
+                        required
+                    >{{ text if text else '' }}</textarea>
+
+                    <button type="submit" class="btn">Analyze Emotion</button>
+                </form>
+
+                {% if error %}
+                <div class="input-preview" style="margin-top: 18px;">
+                    <p class="result-label">Error</p>
+                    <p>{{ error }}</p>
+                </div>
+                {% endif %}
+            </section>
+
+            {% if predicted %}
+            <section class="card result-card">
+                <h2>Detected Emotions</h2>
+                <p class="subtitle">
+                    Emotions shown below meet the threshold of {{ threshold }}.
+                </p>
+
+                <div class="chip-wrap">
+                    {% for item in predicted %}
+                    <div class="emotion-chip">
+                        <span class="chip-label">{{ item.label }}</span>
+                        <span class="chip-score">{{ "%.2f"|format(item.score * 100) }}%</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            {% if top_5 %}
+            <section class="card result-card">
+                <h2>Top 5 Emotion Scores</h2>
+
+                {% for item in top_5 %}
+                <div class="score-row">
+                    <div class="score-header">
+                        <span class="score-label">{{ item.label }}</span>
+                        <span class="score-value">{{ "%.2f"|format(item.score * 100) }}%</span>
+                    </div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: {{ item.score * 100 }}%;"></div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="input-preview">
+                    <p class="result-label">Input Text</p>
+                    <p>{{ text }}</p>
+                </div>
+            </section>
+            {% endif %}
+        </main>
+    </div>
+</body>
+</html>
