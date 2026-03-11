@@ -1,5 +1,14 @@
 import requests
+import json
 
-resp = requests.post("http://localhost:8080", files={'file': open('0.jpg', 'rb')})
+url = "http://localhost:8080/predict"
 
-print(resp.json())
+payload = {
+    "text": "I worked very hard on this project and now I feel proud but exhausted."
+}
+
+response = requests.post(url, json=payload)
+
+print("Status Code:", response.status_code)
+print("Response:")
+print(json.dumps(response.json(), indent=2))
