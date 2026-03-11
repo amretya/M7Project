@@ -19,7 +19,7 @@ variable "service_name" {
 variable "image_url" {
   description = "The URL of the Docker image to deploy."
   type        = string
-  default     = "asia-southeast1-docker.pkg.dev/m7projectemotion/cloud-run-source-deploy/cloud-run-source-deploy:latest"
+  default     = "asia-southeast1-docker.pkg.dev/m7projectemotion/m7-project-repo/m7-project-repo:latest"
 }
 
 variable "cpu" {
