@@ -1,7 +1,7 @@
 variable "project_id" {
   description = "The ID of the project in which to create the resources."
   type        = string
-  default     = "github-action-cve-2"
+  default     = "m7projectemotion"
 }
 
 variable "region" {
@@ -13,13 +13,13 @@ variable "region" {
 variable "service_name" {
   description = "The name of the Cloud Run service."
   type        = string
-  default     = "terraform-test"
+  default     = "m7projectemotion"
 }
 
 variable "image_url" {
   description = "The URL of the Docker image to deploy."
   type        = string
-  default     = "asia-southeast1-docker.pkg.dev/github-action-cve-2/cloud-run-source-deploy/cloud-run-source-deploy:latest"
+  default     = "asia-southeast1-docker.pkg.dev/m7projectemotion/cloud-run-source-deploy/cloud-run-source-deploy:latest"
 }
 
 variable "cpu" {
